@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+
+<head>
+  <meta charset="UTF-8">
+  <title>with-redux</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/redux/4.2.0/redux.js"></script>
+</head>
+
+<body>
+<style>
+  .container {
+    border: 5px solid darkred;
+    padding: 10px;
+    margin: 10px;
+  }
+</style>
+
+<div id="red"></div>
+
+<script>
+  function reducer(state, action) {
+    if (state === undefined) {
+      return {color: 'yellow'}
+    }
+
+    let store = createStore(reducer);
+    store.getState();
+    console.log(store.getState());
+  }
+
+  Redux.createStore(reducer);
+
+  function red() {
+    document.querySelector('#red').innerHTML = `
+                <div class="container" id="component_red">
+                    <h1>RED</h1>
+                    <input type="button" value="change all" onclick="
+                        document.querySelector('#component_red').style.backgroundColor = 'red';
+                        document.querySelector('#component_green').style.backgroundColor = 'red';
+
+                    ">
+                </div>
+            `;
+  }
+  red()
+
+</script>
+</body>
+</html>
