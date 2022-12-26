@@ -17,33 +17,67 @@
 </style>
 
 <div id="red"></div>
+<div id="blue"></div>
+<div id="green"></div>
 
 <script>
+  const store = Redux.createStore(reducer);
+
   function reducer(state, action) {
     if (state === undefined) {
-      return {color: 'yellow'}
+      return {color: 'antiquewhite'}
     }
 
-    let store = createStore(reducer);
-    store.getState();
-    console.log(store.getState());
+    let newState = {};
+
+    if (action.type === 'CHANGE_COLOR') {
+      newState = Object.assign({}, state, {color: action.color});
+    }
+
+    return newState;
   }
 
-  Redux.createStore(reducer);
-
   function red() {
+    let state = store.getState();
     document.querySelector('#red').innerHTML = `
-                <div class="container" id="component_red">
+                <div class="container" id="component_red" style="background-color: ${state.color}">
                     <h1>RED</h1>
                     <input type="button" value="change all" onclick="
-                        document.querySelector('#component_red').style.backgroundColor = 'red';
-                        document.querySelector('#component_green').style.backgroundColor = 'red';
-
+                        store.dispatch({type: 'CHANGE_COLOR', color: 'crimson'});
                     ">
                 </div>
             `;
   }
-  red()
+  store.subscribe(red);
+  red();
+
+  function blue() {
+    let state = store.getState();
+    document.querySelector('#blue').innerHTML = `
+                <div class="container" id="component_red" style="background-color: ${state.color}">
+                    <h1>BLUE</h1>
+                    <input type="button" value="change all" onclick="
+                        store.dispatch({type: 'CHANGE_COLOR', color: 'blueviolet'});
+                    ">
+                </div>
+            `;
+  }
+  store.subscribe(blue);
+  blue();
+
+  function green() {
+    let state = store.getState();
+    document.querySelector('#green').innerHTML = `
+                <div class="container" id="component_red" style="background-color: ${state.color}">
+                    <h1>GREEN</h1>
+                    <input type="button" value="change all" onclick="
+                        store.dispatch({type: 'CHANGE_COLOR', color: 'burlywood'});
+                    ">
+                </div>
+            `;
+  }
+  store.subscribe(green);
+  green();
 
 </script>
 </body>
